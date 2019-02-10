@@ -8,5 +8,8 @@ Download all files from the BeatSaver website. Does not check if the zip files a
 ## Updater script
 Check the CustomSongs directory and download the missings songs.
 
+## Important notes
+To use them, you may need to custom the source code by replacing this variable: **custom_songs_dir**
+
 ## Quick words on the Licence
-Please contact me if you improve these scripts, I may want your improvments. Except that, do what the fuck you want with these scripts :)
+Please contact me if you improve these scripts, I may want your improvments.
