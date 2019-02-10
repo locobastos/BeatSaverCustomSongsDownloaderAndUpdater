@@ -5,7 +5,7 @@ Songs downloaded with theses scripts need the **Beat Saber Song Loader** plugin:
 ## Downloader script
 Download all files from the BeatSaver website. Does not check if the zip files are already downloaded. 
 
-## Updater
+## Updater script
 Check the CustomSongs directory and download the missings songs.
 
 ## Quick words on the Licence
