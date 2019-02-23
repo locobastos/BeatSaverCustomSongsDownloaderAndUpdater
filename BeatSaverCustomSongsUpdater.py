@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 user_agent = UserAgent()
 user_agent_header = {'User-Agent': user_agent.chrome}
 highest_page_number = 0
+next_page_url = ""
 custom_songs_dir = "C:/Program Files (x86)/Steam/steamapps/common/Beat Saber/CustomSongs/"
 
 
@@ -27,8 +28,11 @@ def update_custom_songs(url):
     response = urllib.request.urlopen(request)
     html_source_code = response.read()
     soup = BeautifulSoup(html_source_code, "html.parser")
+    print("Grabbing: " + url)
     for html_hyperlink_tag in soup.find_all('a', href=True):
         check_href_link(html_hyperlink_tag)
+    if next_page_url:
+        update_custom_songs(next_page_url)
 
 
 def check_href_link(html_hyperlink_tag):
@@ -38,9 +42,7 @@ def check_href_link(html_hyperlink_tag):
     """
     href_link = html_hyperlink_tag['href']
     if href_link.startswith("https://beatsaver.com/browse/newest/"):
-        next_page = retrieve_next_page_url(href_link)
-        if next_page:
-            update_custom_songs(next_page)
+        retrieve_next_page_url(href_link)
     elif href_link.startswith("https://beatsaver.com/download/"):
         if not custom_song_already_downloaded(href_link, "n_url") or custom_song_update_available(href_link, "n_url"):
             download_custom_song(href_link, "n_url")
@@ -56,12 +58,13 @@ def retrieve_next_page_url(href_link):
     :return next_page_url: If a next page exists, returns its URL else return empty string
     """
     global highest_page_number
-    next_page_url = ""
+    global next_page_url
     next_page_number = int(href_link.split('/')[5])
     if next_page_number > highest_page_number:
         highest_page_number = next_page_number
         next_page_url = href_link
-    return next_page_url
+    else:
+        next_page_url = ""
 
 
 def custom_song_already_downloaded(href_link, url_type):

@@ -27,6 +27,7 @@ def download_custom_songs(url):
     response = urllib.request.urlopen(request)
     html_source_code = response.read()
     soup = BeautifulSoup(html_source_code, "html.parser")
+    print("Grabbing: " + url)
     for html_hyperlink_tag in soup.find_all('a', href=True):
         check_href_link(html_hyperlink_tag)
     if next_page_url:
