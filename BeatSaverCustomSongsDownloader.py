@@ -1,4 +1,4 @@
-import urllib2
+import urllib.request
 
 from fake_useragent import UserAgent
 from bs4 import BeautifulSoup
@@ -23,8 +23,8 @@ def download_custom_songs(url):
     the HTTP link of the song to download.
     :param url: The URL of the current page (Example: https://beatsaver.com/browse/newest/1337)
     """
-    request = urllib2.Request(url, headers=user_agent_header)
-    response = urllib2.urlopen(request)
+    request = urllib.request.Request(url, headers=user_agent_header)
+    response = urllib.request.urlopen(request)
     html_source_code = response.read()
     soup = BeautifulSoup(html_source_code, "html.parser")
     for html_hyperlink_tag in soup.find_all('a', href=True):
@@ -108,8 +108,8 @@ def download_custom_song(href_link, url_type):
     song_revision = get_custom_song_revision(href_link, url_type)
     song_number = get_custom_song_number(href_link, url_type)
     file_url = "https://beatsaver.com/storage/songs/" + song_revision + "/" + song_revision + "-" + song_number + ".zip"
-    request = urllib2.Request(file_url, headers=user_agent_header)
-    file_data = urllib2.urlopen(request)
+    request = urllib.request.Request(file_url, headers=user_agent_header)
+    file_data = urllib.request.urlopen(request)
     zip_file_name = custom_songs_dir + song_revision + '-' + song_number + ".zip"
     with open(zip_file_name, 'wb') as custom_song_zip_file:
         custom_song_zip_file.write(file_data.read())
