@@ -1,4 +1,5 @@
 import urllib.request
+import sys
 
 from fake_useragent import UserAgent
 from bs4 import BeautifulSoup
@@ -7,6 +8,7 @@ from bs4 import BeautifulSoup
 # _____VARiABLES________________________________________________________________________________________________________
 
 
+sys.setrecursionlimit(sys.getrecursionlimit() * 2)
 user_agent = UserAgent()
 user_agent_header = {'User-Agent': user_agent.chrome}
 highest_page_number = 0
